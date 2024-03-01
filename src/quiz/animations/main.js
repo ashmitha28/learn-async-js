@@ -1,42 +1,30 @@
+const animateAlice = async (element, animation, timing) => {
+  const animationPromise = element.animate(animation, timing).finished;
+  return await animationPromise;
+};
+
 const aliceTumbling = [
-    { transform: 'rotate(0) scale(1)' },
-    { transform: 'rotate(360deg) scale(0)' }
-  ];
-  
-  const aliceTiming = {
-    duration: 2000,
-    iterations: 1,
-    fill: 'forwards'
-  }
-  
-  const alice1 = document.querySelector("#alice1");
-  const alice2 = document.querySelector("#alice2");
-  const alice3 = document.querySelector("#alice3");
+  { transform: 'rotate(0) scale(1)' },
+  { transform: 'rotate(360deg) scale(0)' }
+];
 
-  alice1
-    .animate(aliceTumbling, aliceTiming)
-    .finished
-    .then((res) => {
-        console.log(res);
-        alice2
-            .animate(aliceTumbling, aliceTiming)
-            .finished
-            .then((res) => {
-                console.log(res);
-                alice3.animate(aliceTumbling, aliceTiming);
-            })
-    });
+const aliceTiming = {
+  duration: 2000,
+  iterations: 1,
+  fill: 'forwards'
+};
 
-  // Promise chain  
-  // alice1.animate(aliceTumbling, aliceTiming).finished  
-  //   .then(() => {
-  //       return alice2
-  //               .animate(aliceTumbling, aliceTiming)
-  //               .finished;     
-  //   })
-  //   .then(() => {
-  //     return alice3
-  //             .animate(aliceTumbling, aliceTiming)
-  //             .finished;
-  //   })
-  //   .catch((err) => alert(`Error when promising ... ${err.message}`));
+const alice1 = document.querySelector("#alice1");
+const alice2 = document.querySelector("#alice2");
+const alice3 = document.querySelector("#alice3");
+
+try {
+  await animateAlice(alice1, aliceTumbling, aliceTiming);
+  console.log('Animation for alice1 completed');
+  await animateAlice(alice2, aliceTumbling, aliceTiming);
+  console.log('Animation for alice2 completed');
+  await animateAlice(alice3, aliceTumbling, aliceTiming);
+  console.log('Animation for alice3 completed');
+} catch (error) {
+  console.error('Error:', error);
+}

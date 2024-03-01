@@ -1,1 +1,5 @@
 Explain the code execution based on the order of the messages logged in src/quiz/promise-2darray.txt.
+The calls to sum2DArray() do not yield a result or an error message as they should because the console.log(sumPromise1) and 
+console.log(sumPromise2) statements are executed before the promises are resolved or rejected. Since sum2DArray() is
+ asynchronous due to the setTimeout, the promises are not resolved or rejected immediately, causing the console.log() 
+ statements to display pending promises.
